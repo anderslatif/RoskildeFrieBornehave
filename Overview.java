@@ -16,6 +16,8 @@ public class Overview {
 
 
     static ObservableList<Child> observableList = Controller.getObservableList();
+    static ObservableList<Child> enrolledChildren;
+    static ObservableList<Child> waitingListChildren;
 
     public static AnchorPane getAnchorPane(String passkey) {
         AnchorPane anchor = new AnchorPane();
@@ -80,6 +82,14 @@ public class Overview {
         if(passkey.equals("venteliste")) {
             Button newChildButton = new Button("Nyt Barn");
             grid.add(newChildButton, 0, 12);
+            Button enrollChild = new Button("Placer i en klasse");
+            grid.add(enrollChild, 1, 12);
+            enrollChild.setOnAction( e -> {
+                Child child = (Child) list.getSelectionModel().getSelectedItem();
+                waitingListChildren.remove(child);
+                child.setRoom(textField2.getText());
+                enrolledChildren.add(child);
+            });
         }
 
         textField1.setOnKeyTyped( e -> {
@@ -93,7 +103,6 @@ public class Overview {
 
         if(passkey.equalsIgnoreCase("venteliste")){
             Child child = (Child) list.getSelectionModel().getSelectedItem();
-
         } else {
         textField2.setOnKeyTyped( e -> {
             for(Child chi: observableList){
@@ -267,7 +276,7 @@ public class Overview {
 
     public static ObservableList<Child> checkIfWaitingListChildOrNot(String passkey){
         List<Child> waitingChild = new ArrayList<>();
-        ObservableList<Child> waitingListChildren = FXCollections.observableList(waitingChild);
+        waitingListChildren = FXCollections.observableList(waitingChild);
         for(Child chi: observableList){
             if(chi.getRoom().equalsIgnoreCase("venteliste")){
                 waitingListChildren.add(chi);
@@ -279,13 +288,13 @@ public class Overview {
 
     public static ObservableList<Child> checkIfChildIsEnrolled(String passkey){
         List<Child> waitingChild = new ArrayList<>();
-        ObservableList<Child> waitingListChildren = FXCollections.observableList(waitingChild);
+        enrolledChildren = FXCollections.observableList(waitingChild);
         for(Child chi: observableList){
             if(!(chi.getRoom().equalsIgnoreCase("venteliste"))){
-                waitingListChildren.add(chi);
+                enrolledChildren.add(chi);
             }
         }
-        return waitingListChildren;
+        return enrolledChildren;
     }
 
 
