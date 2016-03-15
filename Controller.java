@@ -5,10 +5,15 @@ import javafx.collections.FXCollections;
 
 public class Controller {
 
-    List<Child> children = new ArrayList<>();
-    ObservableList<Child> observableChildren = FXCollections.observableList(children);
+    public static ObservableList getObservableList(){
+        List<Child> children = new ArrayList<>();
+        ObservableList<Child> observableChildren = FXCollections.observableList(children);
 
-    public ObservableList getObservableList(){
+        Child perJ = new Child(
+                "Per Jensen", "Løvestuen", "1611121342", "Anna Jensen", 45712893, 23872376, "Langgade 14", "Hans Jensen", 45872309, 56473748, "Langgade 14");
+
+        children.add(perJ);
+
         return observableChildren;
     }
 }

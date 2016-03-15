@@ -24,20 +24,8 @@ public class RunClient extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
-        Controller cont = new Controller();
-        cont.getObservableList();
-
-        Child perJ = new Child("Per Jensen");
-        Child craigL = new Child("Craig Larman");
-        Child davidE = new Child("David Ema");
-        Child sørenT = new Child("Søren Thestrup");
-
-        cont.children.add(perJ);
-        cont.children.add(craigL);
-        cont.children.add(davidE);
-        cont.children.add(sørenT);
     }
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -56,7 +44,7 @@ public class RunClient extends Application {
         tabPane.setTabMinWidth(185);
         Tab tab1 = new Tab();
         tab1.setText("Oversigt");
-        //tab1.setContent();
+        tab1.setContent(Overview.getAnchorPane());
         Tab tab2 = new Tab();
         tab2.setText("Vagtplan");
         tab2.setContent(imageView);
@@ -67,36 +55,18 @@ public class RunClient extends Application {
 
         HBox top = new HBox();
         Label header = new Label("Roskilde Frie Børnehave");
-        header.setFont(new Font("Cambria", 36));
+        header.setFont(new Font("Cambria", 42));
         header.setTextFill(Color.WHITE);
         top.getChildren().add(header);
         top.setStyle("-fx-background-color: #3c8823");
-        top.setPadding(new Insets(20, 0, 0, 20));
-        top.setMinHeight(85);
+        top.setPadding(new Insets(20, 0, 0, 50));
+        top.setMinHeight(100);
         top.setMinWidth(1000);
-
-        VBox left = new VBox(8);
-        oversigtButton = new Button("Oversigt");
-        oversigtButton.setMinWidth(100);
-        vagtplanButton = new Button("Vagtplan");
-        vagtplanButton.setMinWidth(100);
-        ventelisteButton = new Button("Venteliste");
-        ventelisteButton.setMinWidth(100);
-        left.getChildren().addAll(oversigtButton, vagtplanButton, ventelisteButton);
-        left.setPadding(new Insets(20, 0, 0, 20));
-        left.setMinHeight(600);
-        left.setMinWidth(125);
-
-
 
         borderPane = new BorderPane();
         borderPane.setTop(top);
         borderPane.setLeft(tabPane);
-
-
-
-
-
+        //borderPane.setCenter(Overview.getAnchorPane());
 
         Scene scene = new Scene(borderPane);
         borderPane.prefHeightProperty().bind(scene.heightProperty());
