@@ -3,7 +3,7 @@ public class Child {
     //Attributes for Child
     private String childName;
     private String room;
-    private int securityNumber;
+    private long securityNumber;
 
     //Attributes for the first Parent
     private String firstParentName;
@@ -45,7 +45,7 @@ public class Child {
         this.room = room;
     }
 
-    public int getSecurityNumber() {
+    public long getSecurityNumber() {
         return securityNumber;
     }
 
