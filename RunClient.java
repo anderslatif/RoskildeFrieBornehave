@@ -43,13 +43,13 @@ public class RunClient extends Application {
         tabPane.setTabMinWidth(185);
         Tab tab1 = new Tab();
         tab1.setText("Oversigt");
-        tab1.setContent(Overview.getAnchorPane());
+        tab1.setContent(Overview.getAnchorPane("hahaha"));
         Tab tab2 = new Tab();
         tab2.setText("Vagtplan");
         tab2.setContent(imageView);
         Tab tab3 = new Tab();
         tab3.setText("Venteliste");
-        //tab3.setContent();
+        tab3.setContent(Overview.getAnchorPane("venteliste"));
         tabPane.getTabs().addAll(tab1, tab2, tab3);
 
         HBox top = new HBox();

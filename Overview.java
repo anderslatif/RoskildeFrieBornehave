@@ -1,21 +1,32 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Overview {
+
+    // when new is clicked all textfield information is gotten, parsed, checked validity and then used to create a child in a method and finally put into the observable list
+
 
     static ObservableList<Child> observableList = Controller.getObservableList();
 
-    public static AnchorPane getAnchorPane() {
+    public static AnchorPane getAnchorPane(String passkey) {
         AnchorPane anchor = new AnchorPane();
-        TableView list = new TableView(observableList);
+        TableView list = new TableView(/*observableList*/);
+
+        if(passkey.equalsIgnoreCase("venteliste")){
+            list.setItems(checkIfWaitingListChildOrNot(passkey));
+        } else {
+            list.setItems(checkIfChildIsEnrolled(passkey));
+        }
+
         list.setEditable(true);
 
         GridPane grid = new GridPane();
@@ -66,6 +77,11 @@ public class Overview {
         grid.setVgap(8);
         grid.setHgap(8);
 
+        if(passkey.equals("venteliste")) {
+            Button newChildButton = new Button("Nyt Barn");
+            grid.add(newChildButton, 0, 12);
+        }
+
         textField1.setOnKeyTyped( e -> {
             for(Child chi: observableList){
                 Child child = (Child) list.getSelectionModel().getSelectedItem();
@@ -75,6 +91,10 @@ public class Overview {
             }
         });
 
+        if(passkey.equalsIgnoreCase("venteliste")){
+            Child child = (Child) list.getSelectionModel().getSelectedItem();
+
+        } else {
         textField2.setOnKeyTyped( e -> {
             for(Child chi: observableList){
                 Child child = (Child) list.getSelectionModel().getSelectedItem();
@@ -83,6 +103,7 @@ public class Overview {
                 }
             }
         });
+        }
 
         textField3.setOnKeyTyped( e -> {
             for(Child chi: observableList){
@@ -242,4 +263,31 @@ public class Overview {
         anchor.getChildren().addAll(list, grid);
         return anchor;
     }
+
+
+    public static ObservableList<Child> checkIfWaitingListChildOrNot(String passkey){
+        List<Child> waitingChild = new ArrayList<>();
+        ObservableList<Child> waitingListChildren = FXCollections.observableList(waitingChild);
+        for(Child chi: observableList){
+            if(chi.getRoom().equalsIgnoreCase("venteliste")){
+                waitingListChildren.add(chi);
+            }
+        }
+        return waitingListChildren;
+    }
+
+
+    public static ObservableList<Child> checkIfChildIsEnrolled(String passkey){
+        List<Child> waitingChild = new ArrayList<>();
+        ObservableList<Child> waitingListChildren = FXCollections.observableList(waitingChild);
+        for(Child chi: observableList){
+            if(!(chi.getRoom().equalsIgnoreCase("venteliste"))){
+                waitingListChildren.add(chi);
+            }
+        }
+        return waitingListChildren;
+    }
+
+
+
 }
