@@ -24,6 +24,19 @@ public class RunClient extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+        Controller cont = new Controller();
+        cont.getObservableList();
+
+        Child perJ = new Child("Per Jensen");
+        Child craigL = new Child("Craig Larman");
+        Child davidE = new Child("David Ema");
+        Child sørenT = new Child("Søren Thestrup");
+
+        cont.children.add(perJ);
+        cont.children.add(craigL);
+        cont.children.add(davidE);
+        cont.children.add(sørenT);
     }
 
     @Override
