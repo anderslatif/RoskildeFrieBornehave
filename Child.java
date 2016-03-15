@@ -15,6 +15,10 @@ public class Child {
     private int secondParentNumber;
     private String secondParentAddress;
 
+    public Child (String childName){
+            this.childName = childName;
+    }
+
     //Constructor with all attributes
     public Child (String childName, String room, int securityNumber, String firstParentName, int firstParentNumber, String firstParentAddress, String secondParentName, int secondParentNumber, String secondParentAddress) {
         this.childName = childName;
