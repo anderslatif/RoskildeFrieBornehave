@@ -20,7 +20,6 @@ public class RunClient extends Application {
 
 
     BorderPane borderPane;
-    Button oversigtButton, vagtplanButton, ventelisteButton;
 
     public static void main(String[] args) {
         launch(args);
@@ -72,6 +71,7 @@ public class RunClient extends Application {
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
         stage.setMaximized(true);
+        stage.getIcons().add(new Image("file:src/Logo.png"));
         stage.setScene(scene);
         stage.show();
     }
