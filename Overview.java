@@ -12,21 +12,19 @@ import java.util.List;
 
 public class Overview {
 
-    // when new is clicked all textfield information is gotten, parsed, checked validity and then used to create a child in a method and finally put into the observable list
-
 
     static ObservableList<Child> observableList = Controller.getObservableList();
     static ObservableList<Child> enrolledChildren;
     static ObservableList<Child> waitingListChildren;
 
-    public static AnchorPane getAnchorPane(String passkey) {
+    public static AnchorPane getAnchorPane(boolean isOnTheWaitingList) {
         AnchorPane anchor = new AnchorPane();
-        TableView list = new TableView(/*observableList*/);
+        TableView list = new TableView();
 
-        if(passkey.equalsIgnoreCase("venteliste")){
-            list.setItems(checkIfWaitingListChildOrNot(passkey));
+        if(isOnTheWaitingList){
+            list.setItems(checkIfWaitingListChildOrNot());
         } else {
-            list.setItems(checkIfChildIsEnrolled(passkey));
+            list.setItems(checkIfChildIsEnrolled());
         }
 
         list.setEditable(true);
@@ -37,14 +35,12 @@ public class Overview {
         grid.add(label1, 0, 0);
         grid.add(textField1, 1, 0);
         Label label2 = new Label("Stue: ");
-        TextField textField2 = new TextField();
         grid.add(label2, 0, 1);
-        grid.add(textField2, 1, 1);
         Label label3 = new Label("CPR: ");
         TextField textField3 = new TextField();
         grid.add(label3, 0, 2);
         grid.add(textField3, 1, 2);
-        Label label4 = new Label("Forældre 1: ");
+        Label label4 = new Label("ForÃ¦ldre 1: ");
         TextField textField4 = new TextField();
         grid.add(label4, 0, 3);
         grid.add(textField4, 1, 3);
@@ -60,7 +56,7 @@ public class Overview {
         TextField textField7 = new TextField();
         grid.add(label7, 0, 6);
         grid.add(textField7, 1, 6);
-        Label label8 = new Label("Forældre 2: ");
+        Label label8 = new Label("ForÃ¦ldre 2: ");
         TextField textField8 = new TextField();
         grid.add(label8, 0, 7);
         grid.add(textField8, 1, 7);
@@ -79,16 +75,70 @@ public class Overview {
         grid.setVgap(8);
         grid.setHgap(8);
 
-        if(passkey.equals("venteliste")) {
-            Button newChildButton = new Button("Nyt Barn");
-            grid.add(newChildButton, 0, 12);
-            Button enrollChild = new Button("Placer i en klasse");
-            grid.add(enrollChild, 1, 12);
-            enrollChild.setOnAction( e -> {
+        ComboBox roomComboBox = new ComboBox();
+        roomComboBox.getItems().addAll(
+                "LÃ¸vestuen",
+                "Tigerstuen",
+                "BjÃ¸rnestuen"
+        );
+        grid.add(roomComboBox, 1, 1);
+        roomComboBox.setOnAction( e -> {
+            Child child = (Child) list.getSelectionModel().getSelectedItem();
+            child.setRoom(roomComboBox.getValue().toString());
+        });
+
+        if(isOnTheWaitingList) {
+            Button clearButton = new Button("Clear");
+            clearButton.setTooltip(new Tooltip("Rydder alle felter, \n nu er du klar til at indtaste et nyt barn til ventelisten"));
+            grid.add(clearButton, 0, 12);
+            clearButton.setOnAction(e -> {
+                list.getSelectionModel().select(null);
+                textField1.clear();
+                //textField2.clear();
+                textField3.clear();
+                textField4.clear();
+                textField5.clear();
+                textField6.clear();
+                textField7.clear();
+                textField8.clear();
+                textField9.clear();
+                textField10.clear();
+                textField11.clear();
+            });
+
+
+            Button newChildButton = new Button("TilfÃ¸j barn til ventelisten");
+            grid.add(newChildButton, 1, 12);
+            newChildButton.setOnAction(e -> {
+                try {
+                    Child child = new Child(textField1.getText(), "Venteliste", textField3.getText(), textField4.getText(),
+                            Integer.parseInt(textField5.getText()), Integer.parseInt(textField6.getText()), textField7.getText(),
+                            textField8.getText(), Integer.parseInt(textField9.getText()), Integer.parseInt(textField10.getText()), textField11.getText());
+                    waitingListChildren.add(child);
+                } catch (Exception err) {
+                    System.out.println(err + " We really should check if the user has input int values in a better way.");
+                }
+            });
+
+
+            Button enrollChild = new Button("      PlacÃ©r i en stue        ");
+            grid.add(enrollChild, 1, 14);
+            enrollChild.setOnAction(e -> {
                 Child child = (Child) list.getSelectionModel().getSelectedItem();
+                child.setRoom(roomComboBox.getValue().toString());
                 waitingListChildren.remove(child);
-                child.setRoom(textField2.getText());
                 enrolledChildren.add(child);
+                textField1.clear();
+                textField3.clear();
+                textField4.clear();
+                textField5.clear();
+                textField6.clear();
+                textField7.clear();
+                textField8.clear();
+                textField9.clear();
+                textField10.clear();
+                textField11.clear();
+                roomComboBox.getSelectionModel().clearSelection();   // this is not working right now
             });
         }
 
@@ -101,18 +151,6 @@ public class Overview {
             }
         });
 
-        if(passkey.equalsIgnoreCase("venteliste")){
-            Child child = (Child) list.getSelectionModel().getSelectedItem();
-        } else {
-        textField2.setOnKeyTyped( e -> {
-            for(Child chi: observableList){
-                Child child = (Child) list.getSelectionModel().getSelectedItem();
-                if(chi == child){
-                    chi.setRoom(textField2.getText());
-                }
-            }
-        });
-        }
 
         textField3.setOnKeyTyped( e -> {
             for(Child chi: observableList){
@@ -229,12 +267,11 @@ public class Overview {
         });
         securityNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        //Tilføj barnets oplysninger til vores table
+        //TilfÃ¸j barnets oplysninger til vores table
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(list.getSelectionModel().getSelectedItem() != null){
                 Child child = (Child) list.getSelectionModel().getSelectedItem();
                 textField1.setText(child.getChildName());
-                textField2.setText(child.getRoom());
                 textField3.setText(child.getSecurityNumber());
                 textField4.setText(child.getFirstParentName());
                 textField5.setText(Integer.toString(child.getFirstParentNumber()));
@@ -274,7 +311,7 @@ public class Overview {
     }
 
 
-    public static ObservableList<Child> checkIfWaitingListChildOrNot(String passkey){
+    public static ObservableList<Child> checkIfWaitingListChildOrNot(){
         List<Child> waitingChild = new ArrayList<>();
         waitingListChildren = FXCollections.observableList(waitingChild);
         for(Child chi: observableList){
@@ -286,7 +323,7 @@ public class Overview {
     }
 
 
-    public static ObservableList<Child> checkIfChildIsEnrolled(String passkey){
+    public static ObservableList<Child> checkIfChildIsEnrolled(){
         List<Child> waitingChild = new ArrayList<>();
         enrolledChildren = FXCollections.observableList(waitingChild);
         for(Child chi: observableList){
