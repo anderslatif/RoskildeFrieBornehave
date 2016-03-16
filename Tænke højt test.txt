@@ -1,0 +1,11 @@
+1. Vær først sikker på du er i menuen "Oversigt".
+
+2. Prøv at ændre i et vilkårligt barns navn.
+
+3. Gå til menuen "Venteliste".
+
+4. Opret et nyt barn, som du placerer på ventelisten.
+
+5. Når barnet er blevet oprettet på ventelisten, skal du forsøge at rykke dette barn over i en vilkårlig stue.
+
+6. Gå til menuen "Oversigt" og se om barnet du oprettede er at finde på listen, og stuen du valgte ligeledes er korrekt.
