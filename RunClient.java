@@ -1,3 +1,5 @@
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
@@ -15,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class RunClient extends Application {
 
@@ -55,12 +58,27 @@ public class RunClient extends Application {
         HBox top = new HBox();
         Label header = new Label("Roskilde Frie Børnehave");
         header.setFont(new Font("Cambria", 42));
+        header.setPadding(new Insets(20, 0, 0, 40));
         header.setTextFill(Color.WHITE);
-        top.getChildren().add(header);
         top.setStyle("-fx-background-color: #3c8823");
-        top.setPadding(new Insets(20, 0, 0, 50));
+        top.setPadding(new Insets(10, 0, 0, 20));
         top.setMinHeight(100);
         top.setMinWidth(1000);
+
+        Image logo = new Image("Logo.png");
+        ImageView logoView = new ImageView();
+        logoView.setFitHeight(80);
+        logoView.setFitWidth(80);
+        logoView.setImage(logo);
+
+        FadeTransition ft = new FadeTransition(Duration.millis(4000), logoView);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.1);
+        ft.setCycleCount(Timeline.INDEFINITE);
+        ft.setAutoReverse(true);
+        ft.play();
+
+        top.getChildren().addAll(logoView, header);
 
         borderPane = new BorderPane();
         borderPane.setTop(top);
