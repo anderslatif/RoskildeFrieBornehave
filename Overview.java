@@ -110,6 +110,11 @@ public class Overview {
                         waitingListChildren.remove(chi);
                     }
                 }
+            for(Child chi : waitingListChildren){
+                if(chi == child){
+                    waitingListChildren.remove(chi);
+                }
+            }
         });
 
 
@@ -153,19 +158,20 @@ public class Overview {
             enrollChild.setOnAction(e -> {
                 Child child = (Child) list.getSelectionModel().getSelectedItem();
                 child.setRoom(roomComboBox.getValue().toString());
-                waitingListChildren.remove(child);
-                enrolledChildren.add(child);
-                textField1.clear();
-                textField3.clear();
-                textField4.clear();
-                textField5.clear();
-                textField6.clear();
-                textField7.clear();
-                textField8.clear();
-                textField9.clear();
-                textField10.clear();
-                textField11.clear();
-                //roomComboBox.getSelectionModel().clearSelection();
+                if(!(child.getRoom().equalsIgnoreCase("venteliste"))) {
+                    waitingListChildren.remove(child);
+                    enrolledChildren.add(child);
+                    textField1.clear();
+                    textField3.clear();
+                    textField4.clear();
+                    textField5.clear();
+                    textField6.clear();
+                    textField7.clear();
+                    textField8.clear();
+                    textField9.clear();
+                    textField10.clear();
+                    textField11.clear();
+                }
             });
 
 /*            TableColumn<Child, String> numberColumn = new TableColumn<>("#");
