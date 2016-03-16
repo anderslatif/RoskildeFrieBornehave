@@ -77,10 +77,11 @@ public class Overview {
 
         ComboBox roomComboBox = new ComboBox();
         roomComboBox.getItems().addAll(
-                "LÃ¸vestuen",
+                "Løvestuen",
                 "Tigerstuen",
-                "BjÃ¸rnestuen"
+                "Bjørnestuen"
         );
+        roomComboBox.setMaxWidth(100.0);
         grid.add(roomComboBox, 1, 1);
         roomComboBox.setOnAction( e -> {
             Child child = (Child) list.getSelectionModel().getSelectedItem();
