@@ -66,11 +66,23 @@ public class AgendaSample extends JFXtrasSampleBase{
 
         Appointment[] lTestAppointments = new Appointment[]{
                      new Agenda.AppointmentImpl()
-                .withStartTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth(), 4, 00))
-                .withEndTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth(), 5, 30))
+                .withStartTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth(), 7, 00))
+                .withEndTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth(), 17, 30))
                 .withSummary("Testmann von Duke")
                 .withDescription("Calendar based")
-                .withAppointmentGroup(lAppointmentGroupMap.get("group08"))
+                .withAppointmentGroup(lAppointmentGroupMap.get("group08")),
+                new Agenda.AppointmentImpl()
+                        .withStartTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 2, 7, 00))
+                        .withEndTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 2, 15, 30))
+                        .withSummary("Simone")
+                        .withDescription("Calendar based")
+                        .withAppointmentGroup(lAppointmentGroupMap.get("group02"))
+                , new Agenda.AppointmentImpl()
+                        .withStartTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 2, 7, 00))
+                        .withEndTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 2, 15, 30))
+                        .withSummary("Sandra Larsen")
+                        .withDescription("Calendar based")
+                        .withAppointmentGroup(lAppointmentGroupMap.get("group02"))
                 // ZonedDateTime: there is no additional value in using ZonedDateTime everywhere, so we just have one test appointment
                 /*,     new Agenda.AppointmentImplTemporal()
                 .withStartTemporal(ZonedDateTime.of(lTodayLocalDate, LocalTime.of(2, 00), ZoneId.systemDefault()) )
@@ -88,34 +100,8 @@ public class AgendaSample extends JFXtrasSampleBase{
                 .withAppointmentGroup(lAppointmentGroupMap.get("group07"))
                 // -----
                 // tasks
-                ,     new Agenda.AppointmentImplLocal()
-                .withStartLocalDateTime(LocalDateTime.of(lTodayLocalDate, LocalTime.of(8, 10)))
-                .withSummary("Testmann")
-                .withDescription("A description " + (++idx))
-                .withAppointmentGroup(lAppointmentGroupMap.get("group17"))
-                ,     new Agenda.AppointmentImplLocal()
-                .withStartLocalDateTime(LocalDateTime.of(lTodayLocalDate, LocalTime.of(8, 10)))
-                .withSummary("Elanor")
-                .withDescription("A description " + (++idx))
-                .withAppointmentGroup(lAppointmentGroupMap.get("group18"))
-                ,     new Agenda.AppointmentImplLocal()
-                .withStartLocalDateTime(LocalDateTime.of(lTodayLocalDate, LocalTime.of(8, 11)))
-                .withSummary("Simone")
-                .withDescription("A description " + (++idx))
-                .withAppointmentGroup(lAppointmentGroupMap.get("group19"))
-                ,     new Agenda.AppointmentImplLocal()
-                .withStartLocalDateTime(LocalDateTime.of(lTodayLocalDate, LocalTime.of(6, 00)))
-                .withSummary("Michael")
-                .withDescription("A description " + (++idx))
-                .withAppointmentGroup(lAppointmentGroupMap.get("group11"))
                 // -----
                 // regular spanning
-                ,     new Agenda.AppointmentImplLocal()
-                .withStartLocalDateTime(lMultipleDaySpannerStartDateTime)
-                .withEndLocalDateTime(lMultipleDaySpannerEndDateTime)
-                .withSummary("Sandra Larsen")
-                .withDescription("A description " + (++idx))
-                .withAppointmentGroup(lAppointmentGroupMap.get("group20"))
         };
         agenda.appointments().addAll(lTestAppointments);
 
