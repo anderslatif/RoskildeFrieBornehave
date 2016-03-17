@@ -29,6 +29,7 @@ public class RunClient extends Application {
 
     BorderPane borderPane;
 
+
     public static void main(String[] args) {
         launch(args);
     }

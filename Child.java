@@ -22,6 +22,10 @@ public class Child {
         private SimpleIntegerProperty secondParentSecondNumber;
         private SimpleStringProperty secondParentAddress;
 
+        public Child(String childName, String room, String securityNumber, String firstParentName, int firstParentNumber, int firstParentSecondNumber, String firstParentAddress){
+            this(childName, room, securityNumber, firstParentName, firstParentNumber, firstParentSecondNumber, firstParentAddress, null, Integer.parseInt(null), Integer.parseInt(null), null);
+        }
+
         public Child(String childName, String room, String securityNumber, String firstParentName, int firstParentNumber, int firstParentSecondNumber, String firstParentAddress, String secondParentName, int secondParentNumber, int secondParentSecondNumber, String secondParentAddress) {
             this.childName = new SimpleStringProperty(childName);
             this.room = new SimpleStringProperty(room);

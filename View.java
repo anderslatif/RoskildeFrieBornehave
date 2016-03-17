@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -146,6 +148,8 @@ public class View {
                 textField9.clear();
                 textField10.clear();
                 textField11.clear();
+
+
             });
 
 
@@ -161,7 +165,12 @@ public class View {
                             Integer.parseInt(textField10.getText()), textField11.getText());
                         waitingListChildren.add(child);
                 } catch (Exception err) {
-                    System.out.println(err + " We really should check if the user has input int values in a better way.");
+                    Label label = new Label("Har du indtastet alt\n, og er det korrekt?");
+                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(8000), label);
+                    fadeTransition.setFromValue(1.0);
+                    fadeTransition.setToValue(0.0);
+                    fadeTransition.play();
+                    grid.add(label, 1, 16);
                 }
             });
 
@@ -185,14 +194,27 @@ public class View {
                     textField9.clear();
                     textField10.clear();
                     textField11.clear();
+                    Label label = new Label("Barnet er placeret \n vælg Oversigt fanen");
+                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(8000), label);
+                    fadeTransition.setFromValue(1.0);
+                    fadeTransition.setToValue(0.0);
+                    fadeTransition.play();
+                    grid.add(label, 1, 16);
                 } else {
                     Label label = new Label("Vælg en stue til barnet \ni den næst-øverste\nkategori: stue");
                     FadeTransition fadeTransition = new FadeTransition(Duration.millis(8000), label);
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
-
-                    grid.add(label, 1, 16);
                     fadeTransition.play();
+                    grid.add(label, 1, 16);
+
+                    Label warningLabel = new Label("Stue");
+                    warningLabel.setTextFill(Color.RED);
+                    FadeTransition fadeTransition2 = new FadeTransition(Duration.millis(8000), warningLabel);
+                    fadeTransition2.setFromValue(1.0);
+                    fadeTransition2.setToValue(0.0);
+                    grid.add(warningLabel, 0, 1);
+                    fadeTransition2.play();
 
                 }
             });
@@ -311,6 +333,8 @@ public class View {
             (t.getTableView().getItems().get(
                     t.getTablePosition().getRow())
             ).setChildName(t.getNewValue());
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
+            textField1.setText(child.getChildName());
         });
 
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -319,12 +343,7 @@ public class View {
         if(isOnTheWaitingList){roomColumn.setText("Tilstand");}
         roomColumn.setMinWidth(300);
         roomColumn.setCellValueFactory(e -> e.getValue().roomProperty());
-        roomColumn.setOnEditCommit( (TableColumn.CellEditEvent<Child, String> t) -> {
-            (t.getTableView().getItems().get(
-                    t.getTablePosition().getRow())
-            ).setRoom(t.getNewValue());
-        });
-        roomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
 
         TableColumn<Child, String> securityNumberColumn = new TableColumn<>("CPR-nummer");
         securityNumberColumn.setMinWidth(300);
@@ -333,6 +352,8 @@ public class View {
             (t.getTableView().getItems().get(
                     t.getTablePosition().getRow())
             ).setSecurityNumber(t.getNewValue());
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
+            textField1.setText(child.getSecurityNumber());
         });
         securityNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
