@@ -72,6 +72,12 @@ public class AgendaSample extends JFXtrasSampleBase{
                 .withDescription("Calendar based")
                 .withAppointmentGroup(lAppointmentGroupMap.get("group08")),
                 new Agenda.AppointmentImpl()
+                        .withStartTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 1, 8, 30))
+                        .withEndTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 1, 13, 00))
+                        .withSummary("Birgitte")
+                        .withDescription("Calendar based")
+                        .withAppointmentGroup(lAppointmentGroupMap.get("group05")),
+                new Agenda.AppointmentImpl()
                         .withStartTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 2, 7, 00))
                         .withEndTime(new GregorianCalendar(lTodayLocalDate.getYear(), lTodayLocalDate.getMonthValue() - 1, lTodayLocalDate.getDayOfMonth() - 2, 15, 30))
                         .withSummary("Simone")
@@ -92,12 +98,6 @@ public class AgendaSample extends JFXtrasSampleBase{
                 .withAppointmentGroup(lAppointmentGroupMap.get("group08"))*/
                 // -----
                 // too short for actual rendering
-                ,     new Agenda.AppointmentImplLocal()
-                .withStartLocalDateTime(LocalDateTime.of(lTodayLocalDate, LocalTime.of(20, 30)))
-                .withEndLocalDateTime(LocalDateTime.of(lTodayLocalDate, LocalTime.of(20, 31)))
-                .withSummary("Sandra Larsen")
-                .withDescription("Too short")
-                .withAppointmentGroup(lAppointmentGroupMap.get("group07"))
                 // -----
                 // tasks
                 // -----

@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -35,7 +36,6 @@ public class View {
         TableView tableView = new TableView();
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
 
 
         if(isOnTheWaitingList){
@@ -165,7 +165,7 @@ public class View {
                             Integer.parseInt(textField10.getText()), textField11.getText());
                         waitingListChildren.add(child);
                 } catch (Exception err) {
-                    Label label = new Label("Har du indtastet alt\n, og er det korrekt?");
+                    Label label = new Label("Har du indtastet alt\nog er det korrekt?");
                     FadeTransition fadeTransition = new FadeTransition(Duration.millis(8000), label);
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
@@ -209,6 +209,7 @@ public class View {
                     grid.add(label, 1, 16);
 
                     Label warningLabel = new Label("Stue");
+                    warningLabel.setFont(Font.font ("bold"));
                     warningLabel.setTextFill(Color.RED);
                     FadeTransition fadeTransition2 = new FadeTransition(Duration.millis(8000), warningLabel);
                     fadeTransition2.setFromValue(1.0);
@@ -219,32 +220,23 @@ public class View {
                 }
             });
 
-/*            TableColumn<Child, String> numberColumn = new TableColumn<>("#");
-            numberColumn.setMinWidth(30);
-            numberColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Child, String>, ObservableValue<String>>() {
-                @Override public ObservableValue<String> call(TableColumn.CellDataFeatures<Child, String> p) {
-                    return new ReadOnlyObjectWrapper(tableView.getItems().indexOf(p.getValue()) + "");
-                }
-            });
-            numberColumn.setSortable(false);
-            tableView.getColumns().add(numberColumn);*/
+
 
 
         }
 
         textField1.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setChildName(textField1.getText());
                 }
             }
         });
 
-
         textField3.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setSecurityNumber(textField3.getText());
                 }
@@ -252,8 +244,8 @@ public class View {
         });
 
         textField4.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setFirstParentName(textField4.getText());
                 }
@@ -261,8 +253,8 @@ public class View {
         });
 
         textField5.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setFirstParentNumber(Integer.parseInt(textField5.getText()));
                 }
@@ -270,8 +262,8 @@ public class View {
         });
 
         textField6.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setFirstParentSecondNumber(Integer.parseInt(textField6.getText()));
                 }
@@ -279,8 +271,8 @@ public class View {
         });
 
         textField7.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setFirstParentAddress(textField7.getText());
                 }
@@ -288,8 +280,8 @@ public class View {
         });
 
         textField8.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setSecondParentName(textField8.getText());
                 }
@@ -297,8 +289,8 @@ public class View {
         });
 
         textField9.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setSecondParentNumber(Integer.parseInt(textField9.getText()));
                 }
@@ -306,8 +298,8 @@ public class View {
         });
 
         textField10.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setSecondParentSecondNumber(Integer.parseInt(textField10.getText()));
                 }
@@ -315,8 +307,8 @@ public class View {
         });
 
         textField11.setOnKeyTyped( e -> {
+            Child child = (Child) tableView.getSelectionModel().getSelectedItem();
             for(Child chi: observableList){
-                Child child = (Child) tableView.getSelectionModel().getSelectedItem();
                 if(chi == child){
                     chi.setSecondParentAddress(textField11.getText());
                 }
