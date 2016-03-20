@@ -1,2 +1,2 @@
 # RoskildeFrieBornehave
-Because we just love children
+2. semester tværfagligt projekt. 
